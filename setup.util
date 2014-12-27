@@ -1,0 +1,5 @@
+#! /bin/bash
+
+echo "=== SETUP.SHELL ==="
+
+sudo apt-get install vim

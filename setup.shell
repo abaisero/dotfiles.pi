@@ -1,0 +1,7 @@
+#! /bin/bash
+
+echo "=== setup.shell ===
+[ !$(which zsh) ] && sudo apt-get install zsh
+[ $SHELL = $(which zsh) ] && echo "setup.shell: zsh already set up" && exit
+
+chsh -s $(which zsh)

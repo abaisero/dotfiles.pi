@@ -1,0 +1,9 @@
+#! /bin/bash
+
+echo "=== SETUP ==="
+sudo apt-get update
+sudo apt-get upgrade
+
+./setup.shell
+./setup.util
+./setup.hostname rpi # causes reboot
