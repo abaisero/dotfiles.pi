@@ -2,4 +2,5 @@
 
 echo "=== SETUP.SHELL ==="
 
-sudo apt-get install vim
+sudo apt-get install net-tools vim
+
