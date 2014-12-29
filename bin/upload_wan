@@ -1,7 +1,8 @@
 #! /bin/bash
 
+trap "{ echo DONE; }" EXIT
 config=$HOME/config/wan
-exec > >(tee -a $config.log)
+exec &> >(tee -a $config.log)
 
 echo === $(date) ===
 
@@ -9,18 +10,21 @@ echo Checking wan config file $config.
 [[ ! -f $config ]] && echo No config file: downloading wan from remote. && dropbox_uploader download wan $config
 [[ ! -f $config ]] && echo No config file: uploading by default. || OLD_WAN=$(cat $config)
 WAN=$(wan)
-if [ $OLD_WAN == $WAN ]
+valid_ip $WAN
+if [[ $? -ne 0 ]]
 then
-  echo No need to update wan.
+  echo ERROR - wan \($WAN\) not an ip address
+  RV=1
+elif [[ $OLD_WAN == $WAN ]]
+then
+  echo Wan is good\; No need to update
   RV=0
 else
-  echo "Uploading new wan ($WAN)"
+  echo Uploading new wan \($WAN\)
   echo -n $WAN > $config
   dropbox_uploader upload $config wan
   RV=$?
-  [[ ! $RV -eq 0 ]] && echo Error uploading wan.
+  [[ $RV -ne 0 ]] && echo ERROR - dropbox_uploader failed
 fi
-
-echo DONE
 
 exit $RV

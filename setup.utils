@@ -1,8 +1,8 @@
 #! /bin/bash
 
+trap "{ echo DONE; }" EXIT
 echo='echo setup.utils:'
+
 echo "=== SETUP.UTILS ==="
 
-sudo apt-get install net-tools vim
-
-echo DONE
+sudo apt-get --yes --force-yes install net-tools avahi-daemon vim >/dev/null

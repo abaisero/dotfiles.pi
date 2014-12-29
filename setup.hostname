@@ -1,14 +1,14 @@
 #! /bin/bash
 
-echo='echo setup.hostname: '
+trap "{ echo DONE; }" EXIT
+echo='echo setup.hostname:'
+
 echo === setup.hostname ===
 
-[ -z $1 ] && $echo FAILED - missing argument \<new_hostname\> && exit
-
 NEW_HOSTNAME=$1
-#[ $HOSTNAME = $NEW_HOSTNAME ] && $echo hostname \'$NEW_HOSTNAME\' already set && exit
 
-[ !$(which avahi-daemon) ] && sudo apt-get install avahi-daemon
+[ -z $NEW_HOSTNAME ] && $echo FAILED - missing argument \<new_hostname\> && exit
+[ $HOSTNAME = $NEW_HOSTNAME ] && $echo hostname \'$NEW_HOSTNAME\' already set && exit
 
 sudo sed -i "s/$HOSTNAME/$NEW_HOSTNAME/g" /etc/hostname
 sudo sed -i "s/$HOSTNAME/$NEW_HOSTNAME/g" /etc/hosts

@@ -1,6 +1,8 @@
 #! /bin/bash
 
+trap "{ echo DONE; }" EXIT
 echo='echo setup.shell:'
+
 echo === setup.shell ===
 
 $echo checking zsh installation
@@ -15,5 +17,3 @@ $echo checking oh-my-zsh directory
 
 cp $omzdir/templates/zshrc.zsh-template $HOME/.zshrc.tmp
 $echo if you please, take .zshrc.tmp as a guide to build your .zshrc
-
-echo DONE

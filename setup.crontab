@@ -1,0 +1,19 @@
+#! /bin/bash
+
+trap "{ echo DONE; }" EXIT
+echo='echo setup.crontab:'
+
+echo === setup.crontab ===
+
+crontab=$HOME/config/crontab
+[[ ! -f $crontab ]] && mkdir -p $(dirname $crontab)
+
+crontab -r
+crontab -e << EOF
+:wq
+EOF
+
+crontab -l > $crontab
+echo -e "SHELL=${SHELL}\nPATH=${PATH}\n" >> $crontab
+echo "0 */1 * * * $HOME/bin/upload_wan" >> $crontab
+crontab $crontab
