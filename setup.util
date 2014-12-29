@@ -1,6 +1,0 @@
-#! /bin/bash
-
-echo "=== SETUP.SHELL ==="
-
-sudo apt-get install net-tools vim
-

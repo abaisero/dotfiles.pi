@@ -1,0 +1,8 @@
+#! /bin/bash
+
+echo='echo setup.utils:'
+echo "=== SETUP.UTILS ==="
+
+sudo apt-get install net-tools vim
+
+echo DONE

@@ -1,9 +1,24 @@
 #! /bin/bash
 
-echo "=== SETUP ==="
-sudo apt-get update
-sudo apt-get upgrade
+# setting up logging message
+echo='echo setup:'
 
-./setup.shell
-./setup.util
-./setup.hostname rpi # causes reboot
+echo === SETUP ===
+
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+homebin=$HOME/bin
+$echo linking $homebin
+[[ -a $homebin ]] && $echo file $homebin already exists. Check manually || ln -s $DIR/bin $homebin
+
+$echo updating repos
+sudo apt-get update &> /dev/null
+[[ $? != 0 ]] && $echo Error - update failed. Check manually && exit
+
+$echo upgrading packages
+sudo apt-get upgrade &> /dev/null
+[[ $? != 0 ]] && $echo Error - update failed. Check manually && exit
+
+$DIR/setup.shell
+# $DIR/setup.util
+$DIR/setup.hostname rpi # keep last

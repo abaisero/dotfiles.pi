@@ -1,16 +1,19 @@
 #! /bin/bash
 
+echo='echo setup.shell:'
 echo === setup.shell ===
 
-echo setup.shell: checking zsh installation
-[[ -z $(which zsh) ]] && echo setup.shell: installing zsh && sudo apt-get install zsh
-echo setup.shell: checking default shell
-[[ $SHELL != $(which zsh) ]] && echo setup.shell: changins default shell to zsh && chsh -s $(which zsh)
+$echo checking zsh installation
+[[ -z $(which zsh) ]] && $echo installing zsh && sudo apt-get install zsh
+$echo checking default shell
+[[ $SHELL != $(which zsh) ]] && $echo changing default shell to zsh && chsh -s $(which zsh)
 
 omzdir=$HOME/git/oh-my-zsh
 dotomzdir=$HOME/.oh-my-zsh
-echo setup.shell: checking oh-my-zsh directory
-[[ ! -d $omzdir ]] && echo setup.shell: cloning into $omzdir && git clone git@github.com:robbyrussell/oh-my-zsh.git $omzdir && ln -s $omzdir $HOME/.oh-my-zsh
+$echo checking oh-my-zsh directory
+[[ ! -d $omzdir ]] && $echo cloning into $omzdir && git clone git@github.com:robbyrussell/oh-my-zsh.git $omzdir && ln -s $omzdir $HOME/.oh-my-zsh
 
 cp $omzdir/templates/zshrc.zsh-template $HOME/.zshrc.tmp
-echo setup.shell: if you please, take .zshrc.tmp as a guide to build your .zshrc
+$echo if you please, take .zshrc.tmp as a guide to build your .zshrc
+
+echo DONE
