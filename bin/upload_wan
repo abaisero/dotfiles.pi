@@ -1,0 +1,26 @@
+#! /bin/bash
+
+config=$HOME/config/wan
+exec > >(tee -a $config.log)
+
+echo === $(date) ===
+
+echo Checking wan config file $config.
+[[ ! -f $config ]] && echo No config file: downloading wan from remote. && dropbox_uploader download wan $config
+[[ ! -f $config ]] && echo No config file: uploading by default. || OLD_WAN=$(cat $config)
+WAN=$(wan)
+if [ $OLD_WAN == $WAN ]
+then
+  echo No need to update wan.
+  RV=0
+else
+  echo "Uploading new wan ($WAN)"
+  echo -n $WAN > $config
+  dropbox_uploader upload $config wan
+  RV=$?
+  [[ ! $RV -eq 0 ]] && echo Error uploading wan.
+fi
+
+echo DONE
+
+exit $RV
