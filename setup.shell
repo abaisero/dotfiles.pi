@@ -13,7 +13,11 @@ $echo checking default shell
 omzdir=$HOME/git/oh-my-zsh
 dotomzdir=$HOME/.oh-my-zsh
 $echo checking oh-my-zsh directory
-[[ ! -d $omzdir ]] && $echo cloning into $omzdir && git clone git@github.com:robbyrussell/oh-my-zsh.git $omzdir && ln -s $omzdir $HOME/.oh-my-zsh
+[[ ! -d $omzdir ]] && $echo cloning into $omzdir && git clone git@github.com:robbyrussell/oh-my-zsh.git $omzdir && ln -s $omzdir $dotomzdir
 
-cp $omzdir/templates/zshrc.zsh-template $HOME/.zshrc.tmp
-$echo if you please, take .zshrc.tmp as a guide to build your .zshrc
+# cp $omzdir/templates/zshrc.zsh-template $HOME/.zshrc.tmp
+# $echo if you please, take .zshrc.tmp as a guide to build your .zshrc
+
+configdir=$HOME/git/dotfiles.pi/config
+ln -s $configdir/zsh $HOME/.zshrc
+ln -s $configdir/bash_aliases $HOME/.bash_aliases

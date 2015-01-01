@@ -1,0 +1,14 @@
+alias u='source "$HOME/.zshrc"'
+alias up='sudo apt-get update; sudo apt-get upgrade'
+alias x='exit'
+
+alias mkdir='mkdir -p'
+alias cp='cp -v'
+alias mv='mv -v'
+alias ls='ls -hl --color=auto'
+alias lt='ls -rt'
+alias ld='ls -l | grep \^d'
+
+alias stalk='tail -f'
+alias valias='vim "$HOME/.bash_aliases"'
+alias vzsh='vim "$HOME/.zshrc"'
